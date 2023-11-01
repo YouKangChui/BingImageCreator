@@ -3,7 +3,6 @@ import asyncio
 import contextlib
 import json
 import os
-import random
 import sys
 import time
 from functools import partial
@@ -17,10 +16,7 @@ import regex
 import requests
 
 BING_URL = os.getenv("BING_URL", "https://www.bing.com")
-# Generate random IP between range 13.104.0.0/14
-FORWARDED_IP = (
-    f"13.{random.randint(104, 107)}.{random.randint(0, 255)}.{random.randint(0, 255)}"
-)
+
 HEADERS = {
     "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
     "accept-language": "en-US,en;q=0.9",
@@ -29,7 +25,6 @@ HEADERS = {
     "referrer": "https://www.bing.com/images/create/",
     "origin": "https://www.bing.com",
     "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36 Edg/110.0.1587.63",
-    "x-forwarded-for": FORWARDED_IP,
 }
 
 # Error messages
@@ -131,7 +126,8 @@ class ImageGen:
         if response.status_code != 302:
             # if rt4 fails, try rt3
             url = f"{BING_URL}/images/create?q={url_encoded_prompt}&rt=3&FORM=GENCRE"
-            response = self.session.post(url, allow_redirects=False, timeout=200)
+            response = self.session.post(
+                url, allow_redirects=False, timeout=200)
             if response.status_code != 302:
                 if self.debug_file:
                     self.debug(f"ERROR: {error_redirect}")
@@ -180,6 +176,7 @@ class ImageGen:
         ]
         for img in normal_image_links:
             if img in bad_images:
+                print(response.text)
                 raise Exception("Bad images")
         # No images
         if not normal_image_links:
@@ -417,7 +414,8 @@ async def async_image_gen(
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-U", help="Auth cookie from browser", type=str)
-    parser.add_argument("--cookie-file", help="File containing auth cookie", type=str)
+    parser.add_argument(
+        "--cookie-file", help="File containing auth cookie", type=str)
     parser.add_argument(
         "--prompt",
         help="Prompt to generate images for",
