@@ -65,11 +65,12 @@ class ImageGen:
 
     def __init__(
         self,
-        auth_cookie: str,
-        auth_cookie_SRCHHPGUSR: str,
+        auth_cookie: str = None,
+        auth_cookie_SRCHHPGUSR: str = None,
         debug_file: Union[str, None] = None,
         quiet: bool = False,
         all_cookies: List[Dict] = None,
+        proxy: str = None,
     ) -> None:
         self.session: requests.Session = requests.Session()
         self.session.headers = HEADERS
@@ -82,6 +83,11 @@ class ImageGen:
         self.debug_file = debug_file
         if self.debug_file:
             self.debug = partial(debug, self.debug_file)
+        if proxy:
+            self.session.proxies = {
+                "http://": proxy,
+                "https://": proxy,
+            }
 
     def get_images(self, prompt: str) -> list:
         """
@@ -249,12 +255,17 @@ class ImageGenAsync:
         debug_file: Union[str, None] = None,
         quiet: bool = False,
         all_cookies: List[Dict] = None,
+        proxy: str = None,
     ) -> None:
         if auth_cookie is None and not all_cookies:
             raise Exception("No auth cookie provided")
         self.session = httpx.AsyncClient(
             headers=HEADERS,
             trust_env=True,
+            proxies={
+                "http://": proxy,
+                "https://": proxy,
+            },
         )
         if auth_cookie:
             self.session.cookies.update({"_U": auth_cookie})
