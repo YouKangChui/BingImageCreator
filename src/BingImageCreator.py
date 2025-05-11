@@ -31,12 +31,12 @@ HEADERS = {
 error_timeout = "Your request has timed out."
 error_redirect = "Cookie过期或其他神秘错误"
 error_blocked_prompt = (
-    "你的提示文字被和谐了"
+    "你的提示文字被Bing和谐了"
 )
 error_being_reviewed_prompt = "Your prompt is being reviewed by Bing. Try to change any sensitive words and try again."
 error_noresults = "Could not get results"
 error_unsupported_lang = "\nthis language is currently not supported by bing"
-error_bad_images = "图片都被和谐了"
+error_bad_images = "图片已生成，但都被Bing和谐了"
 error_no_images = "No images"
 # Action messages
 sending_message = "Sending request..."
