@@ -122,6 +122,10 @@ class ImageGen:
             raise Exception(
                 error_blocked_prompt,
             )
+        if "high demand" in response.text.lower():
+            if self.debug_file:
+                self.debug(f"ERROR: 服务过载，稍后再试")
+            raise Exception("服务过载，稍后再试")
         if (
             "we're working hard to offer image creator in more languages"
             in response.text.lower()
@@ -145,7 +149,7 @@ class ImageGen:
         self.session.get(f"{BING_URL}{redirect_url}")
         # https://www.bing.com/images/create/async/results/{ID}?q={PROMPT}
         polling_url = f"{BING_URL}/images/create/async/results/{request_id}?q={url_encoded_prompt}"
-        time.sleep(50)
+        time.sleep(100)
         # Poll for results
         if self.debug_file:
             self.debug("Polling and waiting for result")
@@ -326,7 +330,7 @@ class ImageGenAsync:
         await self.session.get(f"{BING_URL}{redirect_url}")
         # https://www.bing.com/images/create/async/results/{ID}?q={PROMPT}
         polling_url = f"{BING_URL}/images/create/async/results/{request_id}?q={url_encoded_prompt}"
-        time.sleep(50)
+        time.sleep(100)
         # Poll for results
         if not self.quiet:
             #time.sleep(50)
