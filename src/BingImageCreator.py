@@ -145,11 +145,12 @@ class ImageGen:
         self.session.get(f"{BING_URL}{redirect_url}")
         # https://www.bing.com/images/create/async/results/{ID}?q={PROMPT}
         polling_url = f"{BING_URL}/images/create/async/results/{request_id}?q={url_encoded_prompt}"
+        time.sleep(50)
         # Poll for results
         if self.debug_file:
             self.debug("Polling and waiting for result")
         if not self.quiet:
-            time.sleep(50)
+            #time.sleep(50)
             print("Waiting for results...")
         start_wait = time.time()
         while True:
@@ -325,9 +326,10 @@ class ImageGenAsync:
         await self.session.get(f"{BING_URL}{redirect_url}")
         # https://www.bing.com/images/create/async/results/{ID}?q={PROMPT}
         polling_url = f"{BING_URL}/images/create/async/results/{request_id}?q={url_encoded_prompt}"
+        time.sleep(50)
         # Poll for results
         if not self.quiet:
-            time.sleep(50)
+            #time.sleep(50)
             print("Waiting for results...")
         while True:
             if not self.quiet:
