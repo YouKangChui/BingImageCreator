@@ -183,7 +183,7 @@ class ImageGen:
         for img in normal_image_links:
             if img in bad_images:
                 print(response.text)
-                raise Exception("Bad images")
+                raise Exception(error_bad_images)
         # No images
         if not normal_image_links:
             raise Exception(error_no_images)
@@ -354,7 +354,7 @@ class ImageGenAsync:
         ]
         for im in normal_image_links:
             if im in bad_images:
-                raise Exception("Bad images")
+                raise Exception(error_bad_images)
         # No images
         if not normal_image_links:
             raise Exception("No images")
