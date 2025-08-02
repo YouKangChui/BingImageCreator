@@ -149,6 +149,7 @@ class ImageGen:
         if self.debug_file:
             self.debug("Polling and waiting for result")
         if not self.quiet:
+            time.sleep(50)
             print("Waiting for results...")
         start_wait = time.time()
         while True:
@@ -326,6 +327,7 @@ class ImageGenAsync:
         polling_url = f"{BING_URL}/images/create/async/results/{request_id}?q={url_encoded_prompt}"
         # Poll for results
         if not self.quiet:
+            time.sleep(50)
             print("Waiting for results...")
         while True:
             if not self.quiet:
