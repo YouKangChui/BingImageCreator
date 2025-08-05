@@ -36,7 +36,7 @@ error_blocked_prompt = (
 error_being_reviewed_prompt = "Your prompt is being reviewed by Bing. Try to change any sensitive words and try again."
 error_noresults = "Could not get results"
 error_unsupported_lang = "\nthis language is currently not supported by bing"
-error_bad_images = "图片被Bing和谐了/服务过载"
+error_bad_images = "图片被Bing和谐了"
 error_no_images = "No images"
 # Action messages
 sending_message = "Sending request..."
