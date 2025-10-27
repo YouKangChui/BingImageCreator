@@ -102,7 +102,7 @@ class ImageGen:
         url_encoded_prompt = requests.utils.quote(prompt)
         payload = f"q={url_encoded_prompt}&qs=ds"
         # https://www.bing.com/images/create?q=<PROMPT>&rt=3&FORM=GENCRE
-        url = f"{BING_URL}/images/create?q={url_encoded_prompt}&rt=4&mdl=1&FORM=GENCRE&sm=1"
+        url = f"{BING_URL}/images/create?q={url_encoded_prompt}&rt=3&mdl=1&ar=1&FORM=GENCRE&sm=0&pt=1"
         response = self.session.post(
             url,
             allow_redirects=False,
